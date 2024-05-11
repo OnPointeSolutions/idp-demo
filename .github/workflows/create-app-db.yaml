@@ -2,22 +2,22 @@ name: Create App With DB
 on:
   workflow_dispatch:
     inputs:
-      repo-org:
+      repo_org:
         required: true
         description: "Repository organization"
         type: string
         default: "devopsparadox"
-      repo-user:
+      repo_user:
         required: true
         description: "Repository user"
         type: string
         default: "pkordes"
-      repo-name:
+      repo_name:
         required: true
         description: "Repository name"
         type: string
         default: "idp-demo-app"
-      image-repo:
+      image_repo:
         required: true
         description: "Image repository"
         type: string
@@ -32,12 +32,12 @@ on:
         description: "Application host name"
         type: string
         default: "acme.com"
-      db-version:
+      db_version:
         required: true
         description: "Database version"
         type: string
         default: "13"
-      db-size:
+      db_size:
         required: true
         description: "Database size (small, medium, large)"
         type: string
@@ -50,14 +50,23 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
+      - name: Input Values
+        run: |
+          echo "repo_org = ${{ inputs.repo_org }}"
+          echo "repo_user = ${{ inputs.repo_user }}"
+          echo "repo_name = ${{ inputs.repo_name }}"
+          echo "image_repo = ${{ inputs.image_repo }}"
+          echo "host = ${{ inputs.host }}"
+          echo "db_version = ${{ inputs.db_version }}"
+          echo "db_size = ${{ inputs.db_size }}"
       - name: Create repo
         run: |
           chmod +x scripts/create-repo-app-db.sh
-          ./scripts/create-repo-app-db.sh ${{ secrets.ORG_ADMIN_TOKEN }} ${{ inputs.repo-org }} ${{ inputs.repo-user }} ${{ secrets.DOCKERHUB_USER }} ${{ inputs.repo-name }} ${{ inputs.image-repo }} ${{ inputs.host }} ${{ inputs.db-version }} ${{ inputs.db-size }}
+          ./scripts/create-repo-app-db.sh ${{ secrets.ORG_ADMIN_TOKEN }} ${{ inputs.repo_org }} ${{ inputs.repo_user }} ${{ secrets.DOCKERHUB_USER }} ${{ inputs.repo_name }} ${{ inputs.image_repo }} ${{ inputs.host }} ${{ inputs.db_version }} ${{ inputs.db_size }}
       - name: Create Argo CD App
         run: |
           chmod +x scripts/create-argocd-app.sh
-          ./scripts/create-argocd-app.sh ${{ inputs.repo-name }} ${{ inputs.repo-org }} ${{ inputs.repo-name }} ${{ inputs.environment }}
+          ./scripts/create-argocd-app.sh ${{ inputs.repo_name }} ${{ inputs.repo_org }} ${{ inputs.repo_name }} ${{ inputs.environment }}
       - name: Commit changes
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
