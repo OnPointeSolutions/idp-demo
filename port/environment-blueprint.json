@@ -1,20 +1,21 @@
 {
-    "identifier": "environment",
-    "description": "This blueprint represents an environment",
-    "title": "Environment",
-    "icon": "Environment",
-    "schema": {
-      "properties": {}
-    },
-    "mirrorProperties": {},
-    "calculationProperties": {},
-    "relations": {
-      "cluster": {
-        "target": "cluster",
-        "many": false,
-        "required": true,
-        "title": "Cluster"
-      }
+  "identifier": "environment",
+  "description": "This blueprint represents an environment",
+  "title": "Environment",
+  "icon": "Environment",
+  "schema": {
+    "properties": {},
+    "required": []
+  },
+  "mirrorProperties": {},
+  "calculationProperties": {},
+  "aggregationProperties": {},
+  "relations": {
+    "cluster": {
+      "title": "Cluster",
+      "target": "environment",
+      "required": true,
+      "many": false
     }
   }
-  
+}
