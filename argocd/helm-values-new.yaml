@@ -1,0 +1,17 @@
+configs:
+  cm:
+    application.resourceTrackingMethod: annotation
+server:
+  extraArgs:
+    - --insecure
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: "traefik"
+      traefik.ingress.kubernetes.io/router.entrypoints: "web"
+    hosts:
+      - host: gitops.52.7.144.64.nip.io
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls: []

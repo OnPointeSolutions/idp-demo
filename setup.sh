@@ -310,7 +310,8 @@ echo "export INGRESS_HOST=$INGRESS_HOST" >> .env
 # Kubernetes #
 ##############
 
-yq --inplace ".server.ingress.hosts[0] = \"gitops.${INGRESS_HOST}.nip.io\"" idp-demo/argocd/helm-values.yaml
+#yq --inplace ".server.ingress.hosts[0] = \"gitops.${INGRESS_HOST}.nip.io\"" idp-demo/argocd/helm-values.yaml
+yq --inplace ".server.ingress.hosts[0].host = \"gitops.${INGRESS_HOST}.nip.io\"" idp-demo/argocd/helm-values-new.yaml
 
 cd idp-demo
 
@@ -335,14 +336,12 @@ gum style \
 
 2. Register (if not already).
 
-3. Select the "Builder" page.
+3. Select the "Builder" page. Select the "Data sources" in the left pane.
 
-4. Click the "+ Add" button, select  "Choose from template",
-followed with  "Map your Kubernetes ecosystem".
+4. Click the "+ Data Source" button, select  "Kubernetes" from the "Kubernetes Stack"
 
-5. Click the  "Get this template" button, keep  "Are you using
-ArgoCD" set to  "False", and click the  "Next" button, ignore
-the instructions to run a script and click the "Done" button.'
+5. Name your cluster  "dot-cluster".  Copy the Helm commands using the copy button.
+Execute the commands in a new terminal.
 
 gum input --placeholder "
 Press the enter key to continue."
