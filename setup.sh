@@ -95,6 +95,7 @@ Choose \"No\" if you already authorized it previously.
 
 gum confirm "
 We need to create GitHub secret ORG_ADMIN_TOKEN.
+This token must have these permissions: repo, workflow, admin:org, delete_repo.
 Choose \"No\" if you already have it.
 " \
     && ORG_ADMIN_TOKEN=$(gum input --placeholder "Please enter GitHub organization admin token." --password) \
